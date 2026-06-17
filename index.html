@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COD Store | Shop 'N' Save</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">COD <span>Store</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact" class="btn-nav">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>SHOP 'N' SAVE</h1>
+            <p>Reliable shopping with convenient Cash on Delivery across Pakistan.</p>
+            <a href="#products" class="btn-primary">Browse Shop <i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </section>
+
+    <section class="badges">
+        <div class="container badge-grid">
+            <div class="badge-item">
+                <i class="fas fa-truck"></i>
+                <h3>Cash On Delivery</h3>
+                <p>Pay when you receive your order</p>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-user-shield"></i>
+                <h3>Safe Shopping</h3>
+                <p>Verified quality products</p>
+            </div>
+            <div class="badge-item">
+                <i class="fab fa-whatsapp"></i>
+                <h3>24/7 Support</h3>
+                <p>Quick responses via WhatsApp</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Our Featured Products</h2>
+            <div class="product-grid">
+                
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://via.placeholder.com/300" alt="Product 1">
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Smart Watch</h3>
+                        <p class="price">Rs. 1,499</p>
+                        <button class="btn-whatsapp" onclick="openOrderModal('Premium Smart Watch', 'Rs. 1,499')">
+                            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://via.placeholder.com/300" alt="Product 2">
+                    </div>
+                    <div class="product-info">
+                        <h3>Wireless Earbuds Pro</h3>
+                        <p class="price">Rs. 2,199</p>
+                        <button class="btn-whatsapp" onclick="openOrderModal('Wireless Earbuds Pro', 'Rs. 2,199')">
+                            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container about-content">
+            <h2>About COD Store</h2>
+            <p>Welcome to <strong>COD Store</strong>, your trusted destination for smart shopping in Pakistan. Based out of Rawalpindi, our core philosophy is simple: <strong>Shop 'N' Save</strong>. We aim to bring high-quality, trending everyday consumer electronics, gadgets, and lifestyle items right to your doorstep with zero payment anxiety.</p>
+            <p>By prioritizing 100% reliable Cash On Delivery (COD) shipping networks, we make online shopping safe and hassle-free. No credit cards, no advance bank deposits—just inspect your bundle and pay when it arrives safely in your hands.</p>
+        </div>
+    </section>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+            <h2>Complete Your Order</h2>
+            <p id="modalProductDetails" style="font-weight: bold; margin-bottom: 15px; color: #f39c12;"></p>
+            
+            <form id="quickOrderForm" onsubmit="sendWhatsAppOrder(event)">
+                <input type="hidden" id="formProductName">
+                <input type="hidden" id="formProductPrice">
+                
+                <div class="form-group">
+                    <label for="clientName">Your Full Name *</label>
+                    <input type="text" id="clientName" required placeholder="e.g. Muhammad Ali">
+                </div>
+                <div class="form-group">
+                    <label for="clientQuantity">Quantity *</label>
+                    <input type="number" id="clientQuantity" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientAddress">Full Delivery Address *</label>
+                    <textarea id="clientAddress" rows="3" required placeholder="House/Apartment #, Street, Sector/Area, City"></textarea>
+                </div>
+                <button type="submit" class="btn-submit-order">
+                    <i class="fab fa-whatsapp"></i> Send Order Details Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <p>&copy; 2026 COD Store. All Rights Reserved.</p>
+            <p><i class="fas fa-map-marker-alt"></i> Rawalpindi, Pakistan, 46060</p>
+            <p><i class="fas fa-phone"></i> +92 315 8535835</p>
+        </div>
+    </footer>
+
+    <script>
+        function openOrderModal(productName, productPrice) {
+            document.getElementById('formProductName').value = productName;
+            document.getElementById('formProductPrice').value = productPrice;
+            document.getElementById('modalProductDetails').innerText = `Ordering: ${productName} (${productPrice})`;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function sendWhatsAppOrder(event) {
+            event.preventDefault();
+            
+            const businessNumber = "923158535835"; 
+            const product = document.getElementById('formProductName').value;
+            const price = document.getElementById('formProductPrice').value;
+            const name = document.getElementById('clientName').value;
+            const qty = document.getElementById('clientQuantity').value;
+            const address = document.getElementById('clientAddress').value;
+
+            // Formats clean message layout with linebreaks (%0A)
+            const message = `⚡ *NEW ORDER RECEIVED* ⚡%0A%0A` +
+                            `📦 *Product:* ${product}%0A` +
+                            `💰 *Price:* ${price}%0A` +
+                            `🔢 *Quantity:* ${qty}%0A%0A` +
+                            `👤 *Customer Name:* ${name}%0A` +
+                            `📍 *Shipping Address:* ${address}%0A%0A` +
+                            `Please confirm my order via Cash on Delivery. Thanks!`;
+
+            window.open(`https://wa.me/${businessNumber}?text=${message}`, '_blank');
+            closeOrderModal();
+        }
+
+        // Close modal automatically if customer clicks outside the wrapper box
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                closeOrderModal();
+            }
+        }
+    </script>
+</body>
+</html>
